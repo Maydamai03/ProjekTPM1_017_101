@@ -101,17 +101,15 @@ class _NumberTypeScreenState extends State<NumberTypeScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    elevation: 5, // Adds more shadow
+                    elevation: 5,
                   ).copyWith(
                     overlayColor: MaterialStateProperty.resolveWith<Color?>(
                       (Set<MaterialState> states) {
                         if (states.contains(MaterialState.pressed)) {
-                          return Colors
-                              .blue.shade900; // Darker color when pressed
+                          return Colors.blue.shade900;
                         }
                         if (states.contains(MaterialState.hovered)) {
-                          return Colors
-                              .blue.shade600; // Slightly lighter when hovered
+                          return Colors.blue.shade600;
                         }
                         return null;
                       },
@@ -160,28 +158,43 @@ class _NumberTypeScreenState extends State<NumberTypeScreen> {
                             ),
                           ),
                           SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Bilangan ${numController.text} adalah ",
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black54,
+                          Container(
+                            width: double.infinity,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Bilangan ${numController.text} adalah",
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.black54,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  softWrap: true,
                                 ),
-                              ),
-                              Text(
-                                result,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: result == "Genap"
-                                      ? Colors.green.shade700
-                                      : Colors.purple.shade700,
+                                SizedBox(height: 10),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue.shade100,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    result,
+                                    style: TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold,
+                                      color: result == "Genap"
+                                          ? Colors.green.shade700
+                                          : Colors.purple.shade700,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    softWrap: true,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),

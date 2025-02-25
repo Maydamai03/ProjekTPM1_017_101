@@ -53,9 +53,11 @@ class _SumTotalScreenState extends State<SumTotalScreen> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [ const Color.fromARGB(255, 20, 13, 23),
+            colors: [
+              const Color.fromARGB(255, 20, 13, 23),
               const Color.fromARGB(255, 44, 3, 68),
-              const Color.fromARGB(255, 177, 75, 236)],
+              const Color.fromARGB(255, 177, 75, 236)
+            ],
           ),
         ),
         child: SafeArea(
@@ -108,17 +110,15 @@ class _SumTotalScreenState extends State<SumTotalScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    elevation: 5, // Adds more shadow
+                    elevation: 5,
                   ).copyWith(
                     overlayColor: MaterialStateProperty.resolveWith<Color?>(
                       (Set<MaterialState> states) {
                         if (states.contains(MaterialState.pressed)) {
-                          return Colors
-                              .blue.shade900; // Darker color when pressed
+                          return Colors.blue.shade900;
                         }
                         if (states.contains(MaterialState.hovered)) {
-                          return Colors
-                              .blue.shade600; // Slightly lighter when hovered
+                          return Colors.blue.shade600;
                         }
                         return null;
                       },
@@ -129,17 +129,17 @@ class _SumTotalScreenState extends State<SumTotalScreen> {
                     children: [
                       Icon(
                         Icons.calculate_outlined,
-                        size: 28, // Slightly larger icon
-                        color: Colors.white, // Explicit white color
+                        size: 28,
+                        color: Colors.white,
                       ),
-                      SizedBox(width: 12), // Slightly more spacing
+                      SizedBox(width: 12),
                       Text(
                         "Jumlah Total",
                         style: TextStyle(
-                          fontSize: 20, // Larger font size
-                          fontWeight: FontWeight.bold, // Bold text
-                          letterSpacing: 1.2, // Spread letters slightly
-                          color: Colors.white, // Explicit white color
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.2,
+                          color: Colors.white,
                           shadows: [
                             Shadow(
                               offset: Offset(1, 1),
@@ -176,12 +176,14 @@ class _SumTotalScreenState extends State<SumTotalScreen> {
                           ),
                           SizedBox(height: 15),
                           Text(
-                            "Numbers: ${numbers.join(' + ')}",
+                            "Numbers: ${numbers.length > 5 ? numbers.take(5).join(' + ') + ' ...' : numbers.join(' + ')}",
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.black54,
                             ),
                             textAlign: TextAlign.center,
+                            softWrap:
+                                true, // Biarkan teks pindah ke baris baru jika terlalu panjang
                           ),
                           SizedBox(height: 10),
                           Row(

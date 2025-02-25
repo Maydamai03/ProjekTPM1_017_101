@@ -141,26 +141,44 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
                             ),
                           ),
                           SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "${num1Controller.text} $operation ${num2Controller.text} = ",
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black54,
+                          Container(
+                            width: double
+                                .infinity, // Memastikan lebar mengikuti parent
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "${num1Controller.text} $operation ${num2Controller.text} = ",
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.black54,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  softWrap:
+                                      true, // Memungkinkan teks berpindah ke baris baru jika terlalu panjang
                                 ),
-                              ),
-                              Text(
-                                "$result",
-                                style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue.shade900,
+                                SizedBox(height: 10),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue.shade100,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    "$result",
+                                    style: TextStyle(
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue.shade900,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    softWrap:
+                                        true, // Memastikan angka tidak keluar dari batas container
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),

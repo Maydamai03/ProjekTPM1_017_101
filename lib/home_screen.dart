@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start, // Mulai dari atas
           children: [
-            SizedBox(height: 50), // Memberi jarak dari atas
+            SizedBox(height: 50),
             Center(
               child: Stack(
                 alignment: Alignment.center,
@@ -33,8 +33,7 @@ class HomeScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         horizontal: 20), // Atur margin kiri dan kanan
                     child: Container(
-                      width: double
-                          .infinity, // Agar mengikuti lebar parent dengan margin
+                      width: double.infinity,
                       height: 200,
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -48,11 +47,9 @@ class HomeScreen extends StatelessWidget {
                   ),
 
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 20), // Atur margin kiri dan kanan
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Container(
-                      width: double
-                          .infinity, // Agar mengikuti lebar parent dengan margin
+                      width: double.infinity,
                       height: 200,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -63,8 +60,7 @@ class HomeScreen extends StatelessWidget {
                       child: Text(
                         "WELCOME, to OUR DASHBOARD",
                         style: TextStyle(
-                          color: const Color.fromARGB(
-                              255, 255, 255, 255), // Warna teks putih
+                          color: const Color.fromARGB(255, 255, 255, 255),
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                         ),
@@ -72,18 +68,17 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Teks di atas gambar
                 ],
               ),
             ),
-            SizedBox(height: 50), // Jarak sebelum garis
+            SizedBox(height: 50),
             Divider(
-              color: Colors.grey, // Warna garis
-              thickness: 1.5, // Ketebalan garis
-              indent: 50, // Jarak dari kiri
-              endIndent: 50, // Jarak dari kanan
+              color: Colors.grey,
+              thickness: 1.5,
+              indent: 50,
+              endIndent: 50,
             ),
-            SizedBox(height: 20), // Jarak setelah garis
+            SizedBox(height: 20),
           ],
         ),
       ),
