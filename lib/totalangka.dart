@@ -10,6 +10,8 @@ class SumTotalScreen extends StatefulWidget {
 class _SumTotalScreenState extends State<SumTotalScreen> {
   final TextEditingController numbersController = TextEditingController();
   int total = 0;
+  int numberCount = 0;
+  int digitCount = 0;
   List<int> numbers = [];
   bool hasCalculated = false;
 
@@ -30,7 +32,18 @@ class _SumTotalScreenState extends State<SumTotalScreen> {
             .split(',')
             .map((e) => int.parse(e.trim()))
             .toList();
+        
         total = numbers.reduce((a, b) => a + b);
+        numberCount = numbers.length;
+        
+        // Menghitung jumlah digit dari semua angka
+        digitCount = 0;
+        for (int number in numbers) {
+          // Jika angka negatif, kita hanya hitung digit tanpa tanda minus
+          String numStr = number.abs().toString();
+          digitCount += numStr.length;
+        }
+        
         hasCalculated = true;
       });
     } catch (e) {
@@ -182,30 +195,14 @@ class _SumTotalScreenState extends State<SumTotalScreen> {
                               color: Colors.black54,
                             ),
                             textAlign: TextAlign.center,
-                            softWrap:
-                                true, // Biarkan teks pindah ke baris baru jika terlalu panjang
+                            softWrap: true,
                           ),
                           SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Total: ",
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              Text(
-                                "$total",
-                                style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue.shade700,
-                                ),
-                              ),
-                            ],
-                          ),
+                          _buildResultRow("Total :", "$total", Colors.blue.shade700),
+                          SizedBox(height: 5),
+                          _buildResultRow("Jumlah Angka:", "$numberCount", Colors.green.shade700),
+                          SizedBox(height: 5),
+                          _buildResultRow("Jumlah Digit:", "$digitCount", Colors.purple.shade700),
                         ],
                       ),
                     ),
@@ -217,19 +214,38 @@ class _SumTotalScreenState extends State<SumTotalScreen> {
       ),
     );
   }
-
-  // Widget _buildDrawerItem({
-  //   required IconData icon,
-  //   required String title,
-  //   required VoidCallback onTap,
-  //   Color color = Colors.white,
-  //   double indent = 0,
-  // }) {
-  //   return ListTile(
-  //     contentPadding: EdgeInsets.only(left: 16.0 + indent, right: 16.0),
-  //     leading: Icon(icon, color: color),
-  //     title: Text(title, style: TextStyle(color: color)),
-  //     onTap: onTap,
-  //   );
-  // }
+  
+  Widget _buildResultRow(String label, String value, Color valueColor) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              color: Colors.black54,
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+            decoration: BoxDecoration(
+              color: valueColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: valueColor,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

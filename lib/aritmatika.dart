@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'customappbar.dart';
 import 'customdrawer.dart';
 
@@ -10,7 +11,7 @@ class ArithmeticScreen extends StatefulWidget {
 class _ArithmeticScreenState extends State<ArithmeticScreen> {
   final TextEditingController num1Controller = TextEditingController();
   final TextEditingController num2Controller = TextEditingController();
-  int result = 0;
+  double result = 0;
   String operation = '';
 
   void _showSnackbar(String message, Color color) {
@@ -35,8 +36,8 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
       return;
     }
 
-    int? num1 = int.tryParse(num1Text);
-    int? num2 = int.tryParse(num2Text);
+    double? num1 = double.tryParse(num1Text);
+    double? num2 = double.tryParse(num2Text);
 
     if (num1 == null || num2 == null) {
       _showSnackbar('Input harus berupa angka yang valid!', Colors.orange);
@@ -53,6 +54,15 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
     });
 
     //_showSnackbar('Perhitungan berhasil!', Colors.green);
+  }
+
+  String formatResult(double value) {
+    // Jika nilai adalah integer (tidak ada desimal), tampilkan sebagai integer
+    if (value == value.toInt()) {
+      return value.toInt().toString();
+    }
+    // Jika nilai memiliki desimal, tampilkan hingga 2 digit desimal
+    return value.toStringAsFixed(2);
   }
 
   @override
@@ -142,8 +152,7 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
                           ),
                           SizedBox(height: 10),
                           Container(
-                            width: double
-                                .infinity, // Memastikan lebar mengikuti parent
+                            width: double.infinity,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -154,8 +163,7 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
                                     color: Colors.black54,
                                   ),
                                   textAlign: TextAlign.center,
-                                  softWrap:
-                                      true, // Memungkinkan teks berpindah ke baris baru jika terlalu panjang
+                                  softWrap: true,
                                 ),
                                 SizedBox(height: 10),
                                 Container(
@@ -165,15 +173,14 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
-                                    "$result",
+                                    formatResult(result),
                                     style: TextStyle(
                                       fontSize: 32,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.blue.shade900,
                                     ),
                                     textAlign: TextAlign.center,
-                                    softWrap:
-                                        true, // Memastikan angka tidak keluar dari batas container
+                                    softWrap: true,
                                   ),
                                 ),
                               ],
@@ -191,21 +198,6 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
     );
   }
 
-  // Widget _buildDrawerItem({
-  //   required IconData icon,
-  //   required String title,
-  //   required VoidCallback onTap,
-  //   Color color = Colors.white,
-  //   double indent = 0,
-  // }) {
-  //   return ListTile(
-  //     contentPadding: EdgeInsets.only(left: 16.0 + indent, right: 16.0),
-  //     leading: Icon(icon, color: color),
-  //     title: Text(title, style: TextStyle(color: color)),
-  //     onTap: onTap,
-  //   );
-  // }
-
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,
@@ -213,7 +205,11 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
   }) {
     return TextField(
       controller: controller,
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.numberWithOptions(decimal: true),
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(15),
+        FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+      ],
       style: TextStyle(fontSize: 18),
       decoration: InputDecoration(
         labelText: label,
@@ -223,6 +219,11 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
         ),
         filled: true,
         fillColor: Colors.grey.shade100,
+        counterText: 'Maks. 15 digit',
+        counterStyle: TextStyle(
+          fontSize: 12,
+          color: Colors.grey.shade600,
+        ),
       ),
     );
   }

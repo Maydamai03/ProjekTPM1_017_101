@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'customappbar.dart';
 import 'customdrawer.dart';
 
@@ -79,6 +80,10 @@ class _NumberTypeScreenState extends State<NumberTypeScreen> {
                     child: TextField(
                       controller: numController,
                       keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(15),
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
                         labelText: "Enter Number",
@@ -88,6 +93,11 @@ class _NumberTypeScreenState extends State<NumberTypeScreen> {
                         ),
                         filled: true,
                         fillColor: Colors.grey.shade100,
+                        counterText: 'Maks. 15 digit',
+                        counterStyle: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade600,
+                        ),
                       ),
                     ),
                   ),
@@ -206,19 +216,4 @@ class _NumberTypeScreenState extends State<NumberTypeScreen> {
       ),
     );
   }
-
-  // Widget _buildDrawerItem({
-  //   required IconData icon,
-  //   required String title,
-  //   required VoidCallback onTap,
-  //   Color color = Colors.white,
-  //   double indent = 0,
-  // }) {
-  //   return ListTile(
-  //     contentPadding: EdgeInsets.only(left: 16.0 + indent, right: 16.0),
-  //     leading: Icon(icon, color: color),
-  //     title: Text(title, style: TextStyle(color: color)),
-  //     onTap: onTap,
-  //   );
-  // }
 }
