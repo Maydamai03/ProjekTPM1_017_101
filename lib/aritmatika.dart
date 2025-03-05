@@ -208,7 +208,7 @@ class _ArithmeticScreenState extends State<ArithmeticScreen> {
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       inputFormatters: [
         LengthLimitingTextInputFormatter(15),
-        FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+        FilteringTextInputFormatter.allow(RegExp(r'^-?\d*\.?\d*')),
       ],
       style: TextStyle(fontSize: 18),
       decoration: InputDecoration(
